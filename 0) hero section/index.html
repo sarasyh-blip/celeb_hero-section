@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Celeb Power Metric — Hero Section</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body style="background:#0a0a0a">
+
+  <section class="cpm-hero" aria-label="Celeb Power Metric 인트로">
+
+    <svg class="cpm-hero__grid" viewBox="0 0 1000 640" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <pattern id="cpmGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+      <rect width="1000" height="640" fill="url(#cpmGrid)"/>
+    </svg>
+
+    <div class="cpm-hero__stage" id="cpm-stage"></div>
+
+    <div class="cpm-hero__marquee-wrap" id="cpm-marquee"></div>
+
+    <div class="cpm-hero__question" data-q="0">
+      <div class="cpm-hero__q-inner">
+        <h2 class="cpm-hero__q-text"><span style="white-space:nowrap">내 최애,</span><br><span style="white-space:nowrap">얼마나 인기 있을까?</span></h2>
+      </div>
+    </div>
+    <div class="cpm-hero__question" data-q="1">
+      <div class="cpm-hero__q-inner">
+        <h2 class="cpm-hero__q-text">평판부터 상승세까지 한눈에</h2>
+      </div>
+    </div>
+    <div class="cpm-hero__question" data-q="2">
+      <div class="cpm-hero__q-inner">
+        <h2 class="cpm-hero__q-text">수많은 데이터를 이제 한 곳에서</h2>
+      </div>
+    </div>
+
+    <div class="cpm-hero__final" id="cpm-final">
+      <div class="cpm-hero__final-line1" id="cpm-line1" aria-label="셀럽의 모든 데이터를 지금 바로 확인해보세요"></div>
+      <div class="cpm-hero__final-line2" id="cpm-line2" aria-label="Celeb power metric"></div>
+      <div class="cpm-hero__scroll-indicator" id="cpm-scroll-indicator" aria-hidden="true">
+        <div class="cpm-hero__scroll-arrows">
+          <span>▼</span>
+          <span>▼</span>
+          <span>▼</span>
+          <span>▼</span>
+          <span>▼</span>
+          <span>▼</span>
+        </div>
+        <span class="cpm-hero__scroll-text">scroll down to explore</span>
+      </div>
+    </div>
+
+    <div class="cpm-hero__progress" id="cpm-progress" aria-hidden="true">
+      <div class="cpm-hero__progress-bar"><div class="cpm-hero__progress-fill"></div></div>
+      <div class="cpm-hero__progress-bar"><div class="cpm-hero__progress-fill"></div></div>
+      <div class="cpm-hero__progress-bar"><div class="cpm-hero__progress-fill"></div></div>
+      <div class="cpm-hero__progress-bar"><div class="cpm-hero__progress-fill"></div></div>
+    </div>
+
+  </section>
+
+  <script src="hero.js"></script>
+</body>
+</html>

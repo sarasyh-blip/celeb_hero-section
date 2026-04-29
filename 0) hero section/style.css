@@ -1,0 +1,262 @@
+/* ============================================================
+   Celeb Power Metric — Hero Section
+   ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: #0a0a0a;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans KR', sans-serif;
+  overflow: hidden;
+  height: 100%;
+}
+
+/* ─── 히어로 (뷰포트 고정) ─────────────────────────────── */
+
+.cpm-hero {
+  position: fixed;
+  inset: 0;
+  background: #0a0a0a;
+  overflow: hidden;
+}
+
+/* 배경 그리드 — opacity는 JS 제어 (0에서 시작) */
+.cpm-hero__grid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  color: #1a1a1a;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+/* 타일 무대 */
+.cpm-hero__stage {
+  position: absolute;
+  inset: 0;
+}
+
+.cpm-hero__tile {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 0;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.1);
+  will-change: transform, opacity;
+  pointer-events: none;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+.cpm-hero__tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 질문 텍스트 */
+.cpm-hero__question {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.cpm-hero__q-inner {
+  text-align: center;
+  max-width: min(92vw, 900px);
+  padding: 48px 72px;
+  background: radial-gradient(ellipse 100% 100% at 50% 50%,
+    rgba(10,10,10,0.82) 30%, transparent 100%);
+}
+
+.cpm-hero__q-text {
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: -0.8px;
+  line-height: 1.25;
+  margin: 0;
+}
+
+/* 파이널 (4컷) */
+.cpm-hero__final {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.cpm-hero__final-line1,
+.cpm-hero__final-line2 {
+  text-align: center;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.cpm-hero__final-line1 {
+  font-size: clamp(16px, 2vw, 24px);
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: -0.3px;
+  margin-bottom: 8px;
+}
+
+.cpm-hero__final-line2 {
+  font-size: clamp(36px, 5.5vw, 60px);
+  color: #fff;
+  letter-spacing: -1.2px;
+}
+
+.cpm-hero__char-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  line-height: 1.1;
+}
+
+.cpm-hero__char-mask > span {
+  display: inline-block;
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+
+/* 스크롤 인디케이터 */
+.cpm-hero__scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.5s, transform 0.3s;
+}
+
+.cpm-hero__scroll-arrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.cpm-hero__scroll-arrows span {
+  font-size: 9px;
+  color: #fff;
+  opacity: 0.15;
+  animation: cpm-arrow-wave 1.5s ease-in-out infinite;
+}
+
+.cpm-hero__scroll-arrows span:nth-child(2) { animation-delay: 0.15s; }
+.cpm-hero__scroll-arrows span:nth-child(3) { animation-delay: 0.30s; }
+.cpm-hero__scroll-arrows span:nth-child(4) { animation-delay: 0.45s; }
+.cpm-hero__scroll-arrows span:nth-child(5) { animation-delay: 0.60s; }
+.cpm-hero__scroll-arrows span:nth-child(6) { animation-delay: 0.75s; }
+
+@keyframes cpm-arrow-wave {
+  0%, 100% { opacity: 0.12; transform: translateY(-1px); }
+  50%       { opacity: 0.7;  transform: translateY(2px);  }
+}
+
+.cpm-hero__scroll-text {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: lowercase;
+}
+
+.cpm-hero__final.is-visible { pointer-events: auto; }
+
+/* 진행 인디케이터 — opacity는 JS 제어 (0에서 시작) */
+.cpm-hero__progress {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  z-index: 30;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+.cpm-hero__progress-bar {
+  width: 18px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+
+.cpm-hero__progress-fill {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* ─── 마키 (스크롤 전 초기 화면) ─────────────────────────── */
+.cpm-hero__marquee-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 5;
+  overflow: hidden;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.cpm-hero__marquee-row {
+  flex: 1;
+  overflow: hidden;
+}
+
+.cpm-hero__marquee-track {
+  display: flex;
+  gap: 5px;
+  height: 100%;
+  will-change: transform;
+}
+
+.cpm-hero__marquee-item {
+  flex-shrink: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cpm-hero__marquee-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+/* 접근성 */
+@media (prefers-reduced-motion: reduce) {
+  .cpm-hero__final { opacity: 1 !important; pointer-events: auto !important; }
+  .cpm-hero__char-mask > span { transform: translateY(0) !important; }
+  .cpm-hero__cta { opacity: 1 !important; transform: none !important; }
+  .cpm-hero__final-sub { opacity: 1 !important; }
+}
