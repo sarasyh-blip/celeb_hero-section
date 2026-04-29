@@ -396,7 +396,7 @@
     requestAnimationFrame(tick);
   }
 
-  /* ─── 1·2컷 랜덤 카피 로드 ──────────────────────────────── */
+  /* ─── 1·2·3컷 랜덤 카피 로드 ───────────────────────────── */
   async function loadRandomCopy() {
     try {
       const res  = await fetch('./copy/copy.txt');
@@ -407,12 +407,15 @@
         .map(l => l.replace(/^\d+\.\s*/, '').trim())
         .filter(l => l.length > 0);
 
-      if (lines.length < 2) return;
+      if (lines.length < 3) return;
 
-      // 겹치지 않는 2개 랜덤 선택
-      const i1 = Math.floor(Math.random() * lines.length);
-      let   i2 = Math.floor(Math.random() * (lines.length - 1));
-      if (i2 >= i1) i2++;
+      // 겹치지 않는 3개 랜덤 선택 (Fisher-Yates shuffle 앞 3개)
+      const idx = Array.from({ length: lines.length }, (_, i) => i);
+      for (let i = idx.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [idx[i], idx[j]] = [idx[j], idx[i]];
+      }
+      const [i1, i2, i3] = idx;
 
       // 2줄 고정: 각 줄을 nowrap으로 감싸 추가 줄바꿈 방지
       const wrapTwo = (l1, l2) =>
@@ -421,11 +424,9 @@
 
       const fmt = s => {
         if (s.includes(',')) {
-          // 쉼표 기준 분리
           const cut = s.indexOf(',') + 1;
           return wrapTwo(s.slice(0, cut), s.slice(cut).trim());
         }
-        // 쉼표 없으면 문자 수 중간점에 가장 가까운 띄어쓰기에서 분리
         const mid   = Math.ceil(s.length / 2);
         const left  = s.lastIndexOf(' ', mid);
         const right  = s.indexOf(' ', mid);
@@ -436,8 +437,10 @@
         else cut = (mid - left < right - mid) ? left : right;
         return wrapTwo(s.slice(0, cut), s.slice(cut + 1));
       };
+
       questions[0].querySelector('.cpm-hero__q-text').innerHTML = fmt(lines[i1]);
       questions[1].querySelector('.cpm-hero__q-text').innerHTML = fmt(lines[i2]);
+      questions[2].querySelector('.cpm-hero__q-text').innerHTML = fmt(lines[i3]);
     } catch (e) {
       // 로드 실패 시 HTML 기본값 유지
     }
